@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declaration": true,
+    "target": "es5",
+    "sourceMap": true,
+    "module": "commonjs",
+    "lib": [
+      "es2016",
+    ],
+    "types": [
+      "node",
+      "lodash",
+      "bluebird-global"
+    ],
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
