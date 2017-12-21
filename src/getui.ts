@@ -3,7 +3,7 @@ import * as rp from 'request-promise';
 import * as createError from 'create-error';
 import * as debug from 'debug';
 
-import { sha256, getRequestId, removeUndefined } from './util';
+import { sha256, getRequestId, removeUndefined, getUserAgent } from './util';
 import { Target, SingleMessage, AppMessage, ListMessage, TargetList, BatchTask } from './message';
 import { setTimeout } from 'timers';
 
@@ -13,7 +13,11 @@ const GetuiError = createError('GetuiError', {
   code: 'GETUI_ERROR',
 });
 
+const USER_AGENT = getUserAgent();
+log(`using user agent ${USER_AGENT}`);
+
 const GETUI_BASE_URL: string = 'https://restapi.getui.com/v1';
+log(`using getui base url ${GETUI_BASE_URL}`);
 
 export class GetuiOption {
   appId: string;
@@ -34,7 +38,7 @@ export default class Getui {
       baseUrl: `${GETUI_BASE_URL}/${this.options.appId}`,
       method: 'POST',
       headers: {
-        'User-Agent': 'node-rest',
+        'User-Agent': USER_AGENT,
       },
       json: true,
     });
@@ -46,7 +50,7 @@ export default class Getui {
     }
     if (this._authToken) {
       params.headers = {
-        'User-Agent': 'node-rest',
+        'User-Agent': USER_AGENT,
         authtoken: this._authToken,
       }
     }
