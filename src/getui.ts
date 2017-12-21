@@ -1,10 +1,13 @@
 import * as _ from 'lodash';
 import * as rp from 'request-promise';
 import * as createError from 'create-error';
+import * as debug from 'debug';
 
 import { sha256, getRequestId, removeUndefined } from './util';
 import { Target, SingleMessage, AppMessage, ListMessage, TargetList, BatchTask } from './message';
 import { setTimeout } from 'timers';
+
+const log = debug('getui');
 
 const GetuiError = createError('GetuiError', {
   code: 'GETUI_ERROR',
@@ -47,7 +50,7 @@ export default class Getui {
         authtoken: this._authToken,
       }
     }
-    console.log(JSON.stringify(params.body, null, 2))
+    log(JSON.stringify(params.body, null, 2))
     const ret = await this._rp(params);
     if (ret.result !== 'ok') throw new GetuiError(ret.result, { detail: ret });
     return ret;
@@ -100,7 +103,6 @@ export default class Getui {
       requestid: getRequestId(),
     });
     body.message.appkey = this.options.appKey;
-    console.log(body);
     return this.request({
       url: '/push_single',
       body,

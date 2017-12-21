@@ -33,6 +33,7 @@
     "@types/node": "^8.5.1",
     "bluebird": "^3.5.1",
     "create-error": "^0.3.1",
+    "debug": "^3.1.0",
     "lodash": "^4.17.4",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
