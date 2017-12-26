@@ -13,20 +13,20 @@ export enum NetworkType {
   CELLULAR = 2,
 }
 
-export class Target {
-  cid: string;
-  alias: string;
+export interface Target {
+  cid?: string;
+  alias?: string;
 }
 
-export class TargetList {
+export interface TargetList {
   /**
    * cid为cid list，与alias list二选一
    */
-  cid: string[];
+  cid?: string[];
   /**
    * alias为alias list，与cid list二选一
    */
-  alias: string[];
+  alias?: string[];
 }
 
 export class Message {
@@ -57,12 +57,12 @@ export class Message {
     });
   }
 
-  set template(template: BaseTemplate) {
+  public set template(template: BaseTemplate) {
     this._template = template;
     this.msgType = template.type;
   }
 
-  get template(): BaseTemplate {
+  public get template(): BaseTemplate {
     return this._template;
   }
 
@@ -78,7 +78,7 @@ export class Message {
 export class SingleMessage extends Message {
 }
 
-export class BatchTask {
+export interface BatchTask {
   message: SingleMessage;
   target: Target;
 }

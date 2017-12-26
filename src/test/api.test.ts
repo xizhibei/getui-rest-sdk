@@ -52,8 +52,9 @@ test('#test single', async t => {
   message.template = template;
   message.apnsInfo = apnsInfo;
 
-  const target = new Target();
-  target.cid = process.env.GETUI_CID;
+  const target = <Target>{
+    cid: process.env.GETUI_CID,
+  };
 
   const ret = await gt.pushMessageToSingle(message, target);
   console.log(ret);
@@ -105,8 +106,9 @@ test('#test list', async t => {
   message.template = template;
   message.apnsInfo = apnsInfo;
 
-  const target = new TargetList();
-  target.cid = [process.env.GETUI_CID];
+  const target = <TargetList>{
+    cid: [process.env.GETUI_CID],
+  };
 
   const ret = await gt.pushMessageToList(message, target);
   console.log(ret);
@@ -131,10 +133,11 @@ test('#test single batch', async t => {
   message.template = template;
   message.apnsInfo = apnsInfo;
 
-  const target = new Target();
-  target.cid = process.env.GETUI_CID;
+  const target = <Target>{
+    cid: process.env.GETUI_CID,
+  };
 
-  const bsmsg: BatchTask = {
+  const bsmsg = <BatchTask>{
     message,
     target,
   };
