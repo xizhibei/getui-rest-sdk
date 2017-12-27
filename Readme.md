@@ -17,6 +17,21 @@ npm i getui-rest-sdk --save
 ### Usage
 样例请见测试代码
 
+### Test
+
+```bash
+export GETUI_APP_ID=<app id>
+export GETUI_APP_SECRET=<app secret>
+export GETUI_APP_KEY=<app key>
+export GETUI_MASTER_SECRET=<master secret>
+export GETUI_CID=<cid>
+export GETUI_TEST_TAG=<tag>
+
+export DEBUG=getui
+
+npm test
+```
+
 ### TODO
 - 测试代码完善
 
