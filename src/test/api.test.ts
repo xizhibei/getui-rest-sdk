@@ -14,9 +14,11 @@ import Getui, {
   ListMessage,
   BatchTask,
   TransmissionTemplate,
+  TagMessage,
 } from '../';
 
 let gt: Getui;
+const testTag = process.env.GETUI_TEST_TAG || 'test-tag';
 
 test.before(async t => {
   const option: GetuiOption = {
@@ -34,20 +36,30 @@ test.after.always(async t => {
   await gt.authClose();
 })
 
-test('#test single', async t => {
+function getApnsInfoAndTemplate(type: string): { apnsInfo: ApnsInfo, template: TransmissionTemplate } {
   const alert = new Alert();
-  alert.title = 'push test';
-  alert.body = 'single push';
+  alert.title = 'Title: push test';
+  alert.body = `Body: ${type} push test`;
 
   const payload = JSON.stringify({
-    message: 'single push message',
+    message: `Payload message: ${type} push message test`,
   });
 
   const apnsInfo = new ApnsInfo();
   apnsInfo.alert = alert;
+  apnsInfo.customMsg = { payload };
 
   const template = new TransmissionTemplate();
   template.transmissionContent = payload;
+  return {
+    apnsInfo,
+    template,
+  }
+}
+
+test('#test single', async t => {
+  const { apnsInfo, template } = getApnsInfoAndTemplate('single');
+
   const message = new SingleMessage();
   message.template = template;
   message.apnsInfo = apnsInfo;
@@ -62,21 +74,9 @@ test('#test single', async t => {
 });
 
 test('#test app', async t => {
-  const alert = new Alert();
-  alert.title = 'push test';
-  alert.body = 'app push';
+  const { apnsInfo, template } = getApnsInfoAndTemplate('app');
 
-  const payload = JSON.stringify({
-    message: 'app push message',
-  });
-
-  const apnsInfo = new ApnsInfo();
-  apnsInfo.alert = alert;
-
-  const template = new TransmissionTemplate();
-  template.transmissionContent = payload;
-
-  let cond = new Condition(ConditionKey.TAG, ['test-tag'], CondOptType.OR);
+  let cond = new Condition(ConditionKey.TAG, [testTag], CondOptType.OR);
 
   const message = new AppMessage();
   message.template = template;
@@ -88,20 +88,22 @@ test('#test app', async t => {
   t.is(ret.result, 'ok');
 });
 
+test('#test tag', async t => {
+  const { apnsInfo, template } = getApnsInfoAndTemplate('tag');
+
+  const message = new TagMessage();
+  message.template = template;
+  message.apnsInfo = apnsInfo;
+  message.tag = testTag;
+
+  const ret = await gt.pushMessageByTag(message);
+  console.log(ret);
+  t.is(ret.result, 'ok');
+});
+
 test('#test list', async t => {
-  const alert = new Alert();
-  alert.title = 'push test';
-  alert.body = 'list push';
+  const { apnsInfo, template } = getApnsInfoAndTemplate('list');
 
-  const payload = JSON.stringify({
-    message: 'list push message',
-  });
-
-  const apnsInfo = new ApnsInfo();
-  apnsInfo.alert = alert;
-
-  const template = new TransmissionTemplate();
-  template.transmissionContent = payload;
   const message = new ListMessage();
   message.template = template;
   message.apnsInfo = apnsInfo;
@@ -116,19 +118,8 @@ test('#test list', async t => {
 });
 
 test('#test single batch', async t => {
-  const alert = new Alert();
-  alert.title = 'push test';
-  alert.body = 'single batch push';
+  const { apnsInfo, template } = getApnsInfoAndTemplate('single batch');
 
-  const payload = JSON.stringify({
-    message: 'single push message batch',
-  });
-
-  const apnsInfo = new ApnsInfo();
-  apnsInfo.alert = alert;
-
-  const template = new TransmissionTemplate();
-  template.transmissionContent = payload;
   const message = new SingleMessage();
   message.template = template;
   message.apnsInfo = apnsInfo;
