@@ -135,3 +135,10 @@ export class AppMessage extends Message {
   }
 }
 
+export class TagMessage extends Message {
+  /**
+   * 用户的 tag
+   */
+  tag: string;
+}
+

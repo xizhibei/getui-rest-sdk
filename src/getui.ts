@@ -5,9 +5,23 @@ import * as rp from 'request-promise';
 import * as createError from 'create-error';
 import * as debug from 'debug';
 
-import { sha256, getRequestId, removeUndefined, getUserAgent } from './util';
-import { Target, SingleMessage, AppMessage, ListMessage, TargetList, BatchTask, Condition } from './message';
 import { Alias } from './other';
+import {
+  sha256,
+  getRequestId,
+  removeUndefined,
+  getUserAgent
+} from './util';
+import {
+  Target,
+  SingleMessage,
+  AppMessage,
+  ListMessage,
+  TagMessage,
+  TargetList,
+  BatchTask,
+  Condition,
+} from './message';
 
 const log = debug('getui');
 
@@ -454,12 +468,34 @@ export default class Getui {
       condition: message.getConditions(),
       push_info: message.getPushInfo(),
       requestid: getRequestId(),
-      speed: speed,
+      speed,
       task_name: taskName,
     });
     body.message.appkey = this.options.appKey;
     return this.request({
       url: '/push_app',
+      body,
+    });
+  }
+
+  /**
+   * 针对某个 appid 根据 tag 条件筛选，将消息群发给符合条件客户群
+   *
+   * @param {TagMessage} message
+   * @param {number} [speed = 0]
+   */
+  public pushMessageByTag(message: TagMessage, speed: number = 0): Promise<any> {
+    const body = removeUndefined({
+      message: message.getData(),
+      tag: message.tag,
+      [message.msgType]: message.getTemplateData(),
+      push_info: message.getPushInfo(),
+      requestid: getRequestId(),
+      speed,
+    });
+    body.message.appkey = this.options.appKey;
+    return this.request({
+      url: '/push_by_tag',
       body,
     });
   }
