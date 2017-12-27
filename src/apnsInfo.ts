@@ -128,8 +128,13 @@ export class ApnsInfo {
    */
   multimedias: Multimedia[];
 
+  /**
+   * 该字段为 apn 推送的自定义数据，必须为 object
+   */
+  customMsg: Object = {};
+
   public toObject(): any {
-    return {
+    const pushInfo = {
       aps: removeUndefined({
         alert: this.alert.toObject(),
         autoBadge: this.autoBadge,
@@ -138,6 +143,7 @@ export class ApnsInfo {
         category: this.category,
       }),
       multimedia: _.map(this.multimedias, m => m.toObject()),
-    }
+    };
+    return _.assign({}, this.customMsg, pushInfo);
   }
 }
