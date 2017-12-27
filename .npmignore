@@ -5,3 +5,4 @@ dist/test/
 .editorconfig
 .eslintrc.yaml
 *.tgz
+test.sh
