@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import { BaseTemplate } from './template';
 import { removeUndefined } from './util';
 import { ApnsInfo } from './apnsInfo';
+import { Region, PhoneType, ConditionKey, CondOptType } from './other';
 
 /**
  * 0:联网方式不限;1:仅wifi;2:仅4G/3G/2G
@@ -86,18 +87,6 @@ export interface BatchTask {
 export class ListMessage extends Message {
 }
 
-export enum ConditionKey {
-   PHONE_TYPE = 'phonetype',
-   REGION = 'region',
-   TAG = 'tag',
-}
-
-export enum CondOptType {
-  OR = 0,
-  AND = 1,
-  NotIn = 2,
-}
-
 export class Condition {
   /**
    * 筛选条件类型名称(省市region,手机类型phonetype,用户标签tag)
@@ -106,7 +95,7 @@ export class Condition {
   /**
    * 筛选参数
    */
-  values: string[] = [];
+  values: (Region | PhoneType | string)[] = [];
   /**
    * 筛选参数的组合，0:取参数并集or，1：交集and，2：相当与not in {参数1，参数2，....}
    */

@@ -35,6 +35,9 @@ log(`using user agent ${USER_AGENT}`);
 const GETUI_BASE_URL: string = 'https://restapi.getui.com/v1';
 log(`using getui base url ${GETUI_BASE_URL}`);
 
+/**
+ * 个推配置
+ */
 export interface GetuiOption {
   appId: string;
   appSecret: string;
@@ -42,15 +45,18 @@ export interface GetuiOption {
   masterSecret: string;
 }
 
+/**
+ * 个推所有的 rest 接口
+ */
 export default class Getui {
   public options: GetuiOption;
-  private _rp: any;
-  private _authToken: string;
+  private rp: any;
+  private authToken: string;
 
   public constructor(options: GetuiOption) {
     this.options = options;
 
-    this._rp = rp.defaults({
+    this.rp = rp.defaults({
       baseUrl: `${GETUI_BASE_URL}/${this.options.appId}`,
       method: 'POST',
       headers: {
@@ -64,14 +70,14 @@ export default class Getui {
     if (params.body) {
       params.body = removeUndefined(params.body);
     }
-    if (this._authToken) {
+    if (this.authToken) {
       params.headers = {
         'User-Agent': USER_AGENT,
-        authtoken: this._authToken,
+        authtoken: this.authToken,
       }
     }
     log(JSON.stringify(params.body, null, 2))
-    const ret = await this._rp(params);
+    const ret = await this.rp(params);
     if (ret.result !== 'ok') throw new GetuiError(ret.result, { detail: ret });
     return ret;
   }
@@ -90,7 +96,7 @@ export default class Getui {
         appkey: this.options.appKey,
       },
     });
-    this._authToken = authToken;
+    this.authToken = authToken;
 
     // Token 有效期24小时，提前十分钟，即每过 23 小时 50 分钟刷新
     setTimeout(this.authSign.bind(this), 86340000);
@@ -105,7 +111,7 @@ export default class Getui {
       body: {},
     });
 
-    this._authToken = null;
+    this.authToken = null;
   }
 
   /**

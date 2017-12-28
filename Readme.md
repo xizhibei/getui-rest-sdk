@@ -4,20 +4,98 @@
 
 详细原接口文档：http://docs.getui.com/server/rest/start/
 
-*Warning*: 未经严格测试，尚未正式发布
+> 除了原文档中的接口，其中另外还提供了 `pushMessageByTag` 方法，可以用来发送按 tag 或者说按 topic 方式推送数据。
 
 ### Installing
 
-```
+```bash
 npm i getui-rest-sdk --save
 ```
 
 建议使用 vscode 开发，typing 代码提示更加完善
 
 ### Usage
-样例请见测试代码
+
+以下样例均使用 TypeScript 展示，可轻易修改为 ES6
+
+##### 初始化
+
+```ts
+const option: GetuiOption = {
+  appId: APP_ID,
+  appSecret: APP_SECRET,
+  appKey: APP_KEY,
+  masterSecret: MASTER_SECRET,
+};
+
+const gt = new Getui(option);
+await gt.authSign();
+```
+
+##### 初始化透传模板
+
+```ts
+const alert = new Alert();
+alert.title = 'Title: push test';
+alert.body = `Body: push test`;
+
+const payload = JSON.stringify({
+  message: `Payload message: push message test`,
+});
+
+const apnsInfo = new ApnsInfo();
+apnsInfo.alert = alert;
+apnsInfo.customMsg = { payload };
+
+const template = new TransmissionTemplate();
+template.transmissionContent = payload;
+```
+
+##### 单个推送
+
+```ts
+const message = new SingleMessage();
+message.template = template;
+message.apnsInfo = apnsInfo;
+
+const target = <Target>{
+  cid: GETUI_CID,
+};
+
+const ret = await gt.pushMessageToSingle(message, target);
+```
+
+##### APP推送
+
+```ts
+const message = new AppMessage();
+message.template = template;
+message.apnsInfo = apnsInfo;
+message.conditions = [
+  new Condition(ConditionKey.TAG, [testTag], CondOptType.OR),
+  new Condition(ConditionKey.Region, [Region.北京市], CondOptType.OR),
+  new Condition(ConditionKey.PHONE_TYPE, [PhoneType.IOS], CondOptType.OR),
+];
+
+const ret = await gt.pushMessageToApp(message)
+```
+
+##### 按 tag 推送
+
+```ts
+const message = new TagMessage();
+message.template = template;
+message.apnsInfo = apnsInfo;
+message.tag = testTag;
+
+const ret = await gt.pushMessageByTag(message);
+```
+
+更多样例，请见测试代码
 
 ### Test
+
+由于测试是与个推服务器进行交互，以下测试账号数据需要用你自己的
 
 ```bash
 export GETUI_APP_ID=<app id>
