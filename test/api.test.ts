@@ -15,7 +15,7 @@ import Getui, {
   BatchTask,
   TransmissionTemplate,
   TagMessage,
-} from '../';
+} from '../src';
 
 let gt: Getui;
 const testTag = process.env.GETUI_TEST_TAG || 'test-tag';

@@ -18,7 +18,7 @@ export function removeUndefined(obj: any): any {
 }
 
 export function getUserAgent(): string {
-  const pkgFile = resolve(__dirname, '../package.json');
+  const pkgFile = resolve(__dirname, '../../package.json');
   const pkg = JSON.parse(readFileSync(pkgFile).toString());
   return `${pkg.name}/${pkg.version}`;
 }

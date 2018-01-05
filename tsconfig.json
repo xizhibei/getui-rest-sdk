@@ -6,16 +6,17 @@
     "sourceMap": true,
     "module": "commonjs",
     "lib": [
-      "es2016",
+      "es2016"
     ],
     "types": [
       "node",
       "lodash",
       "bluebird-global"
-    ],
+    ]
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "./test/**/*"
   ],
   "exclude": [
     "node_modules"

@@ -2,8 +2,8 @@
   "name": "getui-rest-sdk",
   "version": "0.1.0",
   "description": "Getui rest api for node.js, in TypeScript",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
   "scripts": {
     "test": "tsc && ava",
     "lint": "eslint src",
