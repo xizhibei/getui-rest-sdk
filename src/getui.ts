@@ -74,9 +74,9 @@ export default class Getui {
       params.headers = {
         'User-Agent': USER_AGENT,
         authtoken: this.authToken,
-      }
+      };
     }
-    log(JSON.stringify(params.body, null, 2))
+    log(JSON.stringify(params.body, null, 2));
     const ret = await this.rp(params);
     if (ret.result !== 'ok') throw new GetuiError(ret.result, { detail: ret });
     return ret;
@@ -128,8 +128,8 @@ export default class Getui {
       return {
         cid: alias.cid,
         alias: alias.alias,
-      }
-    })
+      };
+    });
     return this.request({
       url: `/bind_alias`,
       body: {
@@ -544,7 +544,7 @@ export default class Getui {
       cid: list.cid,
       alias: list.alias,
       need_detail: true,
-    }
+    };
     return this.request({
       url: '/push_list',
       body,

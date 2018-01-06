@@ -30,11 +30,11 @@ test.before(async t => {
 
   gt = new Getui(option);
   await gt.authSign();
-})
+});
 
 test.after.always(async t => {
   await gt.authClose();
-})
+});
 
 function getApnsInfoAndTemplate(type: string): { apnsInfo: ApnsInfo, template: TransmissionTemplate } {
   const alert = new Alert();
@@ -54,7 +54,7 @@ function getApnsInfoAndTemplate(type: string): { apnsInfo: ApnsInfo, template: T
   return {
     apnsInfo,
     template,
-  }
+  };
 }
 
 test('#test single', async t => {
@@ -83,7 +83,7 @@ test('#test app', async t => {
   message.apnsInfo = apnsInfo;
   message.conditions = [cond];
 
-  const ret = await gt.pushMessageToApp(message)
+  const ret = await gt.pushMessageToApp(message);
   console.log(ret);
   t.is(ret.result, 'ok');
 });
