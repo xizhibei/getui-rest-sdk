@@ -1,5 +1,9 @@
 # Getui Rest SDK
 
+[![npm version](https://badge.fury.io/js/getui-rest-sdk.svg?style=flat)](http://badge.fury.io/js/getui-rest-sdk)
+[![Dependency Status](https://img.shields.io/david/xizhibei/getui-rest-sdk.svg?style=flat)](https://david-dm.org/xizhibei/getui-rest-sdk)
+[![npm](https://img.shields.io/npm/l/getui-rest-sdk.svg)](https://github.com/xizhibei/getui-rest-sdk/blob/master/LICENSE)
+
 ### Getting Started
 
 详细原接口文档：http://docs.getui.com/server/rest/start/
