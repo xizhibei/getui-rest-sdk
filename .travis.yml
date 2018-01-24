@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+- 4
+
+cache:
+  directories:
+  - "$HOME/.npm"
+  - "$HOME/.yarn-cache"
+
+script:
+- npm run lint
+- npm run build
+
+deploy:
+  provider: npm
+  email: xuzhipei@gmail.com
+  api_key:
+    secure: p7tpi5bVDouls5KyjpG85FyDzTeYTppYeOPEIh9Mgykc/kt+3MSw+5T2QPXitVH0tBz73PyKeh1zaIZNKjOjHsbWLCYXb5u4+dKCjmWthpMSMqV+gBNtP+N2UJ+JPJ/Q2s45qwo7m9QwdzmWutje91fELG9G45KfiUubGT8DCXThtvQSczXEoJl1u+ePsfqYVUzCUFMKDMerCcqQro/vH102/tepBj84+mMw6aoUGMbrH/JOog9B2yE15i60SOgecBV5u7mzjpoQNb2785893Xw1yEYiD5h9i2cKKjupZY5Cbt4U0vJ8dsiKDAfhi5402s0Ku4ZbFympX00QNmb6MQt+d/RVTI+60gFy3lEU3iPgaigv4NjXOKL/TU8hKrl9q4F3SKbdL5uQclZ9Rq+RaRt+Bi/BqDJLpep3l1yzcF2NhW3aaBvHGNVDCnnw9+ZcLtscg4EvnTxFoGIpor0Z+os+h3Tj0GA2bAJ/rjuzl47XisRmoxVYBaGFcDq9LpSmoJ9R/ER2yLTdT6K67Ue7Xsgd5o2mdOZbbx90JCPNvu4MwC/1SzzL4IwOMqGthrhgQGFH1G16f90yXjp4KunDf77k7u7ZpMGSZLN8BkC9dnuHJldqLjtB09ESVw1G+bDunaxqj7WRYQYYFNMW/oeMb0vVYgF1oyEmNptJSMygqMU=
+  on:
+    tags: true
+    repo: xizhibei/getui-rest-sdk
+  skip_cleanup: true
