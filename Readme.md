@@ -99,7 +99,7 @@ const ret = await gt.pushMessageByTag(message);
 
 ### Test
 
-由于测试是与个推服务器进行交互，以下测试账号数据需要用你自己的
+测试基于 nock 来模拟服务器，但是你可以设置环境变量与真实个推服务器测试进行交互，以下测试账号数据需要用你自己的
 
 ```bash
 export GETUI_APP_ID=<app id>
@@ -108,6 +108,8 @@ export GETUI_APP_KEY=<app key>
 export GETUI_MASTER_SECRET=<master secret>
 export GETUI_CID=<cid>
 export GETUI_TEST_TAG=<tag>
+
+export GETUI_TEST_USE_REAL_CONNECTION=true
 
 export DEBUG=getui
 

@@ -1,4 +1,7 @@
 import test from 'ava';
+import * as fs from 'fs';
+
+import setUpNock from './fixtures/nock';
 
 import Getui, {
   GetuiOption,
@@ -17,17 +20,22 @@ import Getui, {
   TagMessage,
 } from '../src';
 
+const option: GetuiOption = {
+  appId: process.env.GETUI_APP_ID || 'test_app_id',
+  appSecret: process.env.GETUI_APP_SECRET || 'test_app_secret',
+  appKey: process.env.GETUI_APP_KEY || 'test_app_key',
+  masterSecret: process.env.GETUI_MASTER_SECRET || 'test_master_secret',
+};
+
 let gt: Getui;
 const testTag = process.env.GETUI_TEST_TAG || 'test-tag';
+const testCID = process.env.GETUI_CID || 'test-cid';
+
+if (!process.env.GETUI_TEST_USE_REAL_CONNECTION) {
+  setUpNock(option.appId);
+}
 
 test.before(async t => {
-  const option: GetuiOption = {
-    appId: process.env.GETUI_APP_ID,
-    appSecret: process.env.GETUI_APP_SECRET,
-    appKey: process.env.GETUI_APP_KEY,
-    masterSecret: process.env.GETUI_MASTER_SECRET,
-  };
-
   gt = new Getui(option);
   await gt.authSign();
 });
@@ -65,11 +73,10 @@ test('#test single', async t => {
   message.apnsInfo = apnsInfo;
 
   const target = <Target>{
-    cid: process.env.GETUI_CID,
+    cid: testCID,
   };
 
   const ret = await gt.pushMessageToSingle(message, target);
-  console.log(ret);
   t.is(ret.result, 'ok');
 });
 
@@ -84,7 +91,6 @@ test('#test app', async t => {
   message.conditions = [cond];
 
   const ret = await gt.pushMessageToApp(message);
-  console.log(ret);
   t.is(ret.result, 'ok');
 });
 
@@ -97,7 +103,6 @@ test('#test tag', async t => {
   message.tag = testTag;
 
   const ret = await gt.pushMessageByTag(message);
-  console.log(ret);
   t.is(ret.result, 'ok');
 });
 
@@ -113,7 +118,6 @@ test('#test list', async t => {
   };
 
   const ret = await gt.pushMessageToList(message, target);
-  console.log(ret);
   t.is(ret.result, 'ok');
 });
 
@@ -125,7 +129,7 @@ test('#test single batch', async t => {
   message.apnsInfo = apnsInfo;
 
   const target = <Target>{
-    cid: process.env.GETUI_CID,
+    cid: testCID,
   };
 
   const bsmsg = <BatchTask>{
@@ -134,6 +138,5 @@ test('#test single batch', async t => {
   };
 
   const ret = await gt.pushMessageToSingleBatch([bsmsg]);
-  console.log(ret);
   t.is(ret.result, 'ok');
 });
