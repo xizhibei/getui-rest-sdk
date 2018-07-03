@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import * as crypto from 'crypto';
+import * as os from 'os';
 
 import * as _ from 'lodash';
 import * as uuid from 'uuid';
@@ -20,5 +21,5 @@ export function removeUndefined(obj: any): any {
 export function getUserAgent(): string {
   const pkgFile = resolve(__dirname, '../../package.json');
   const pkg = JSON.parse(readFileSync(pkgFile).toString());
-  return `${pkg.name}/${pkg.version}`;
+  return `${pkg.name}/${pkg.version} (${os.type()}; ${os.release()}) node/${process.version}`;
 }
