@@ -6,3 +6,4 @@ dist/test/
 .eslintrc.yaml
 *.tgz
 test.sh
+tsconfig.json
