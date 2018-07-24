@@ -12,6 +12,7 @@ import {
   removeUndefined,
   getUserAgent
 } from './util';
+
 import {
   Target,
   SingleMessage,
@@ -25,7 +26,7 @@ import {
 
 const log = debug('getui');
 
-const GetuiError = createError('GetuiError', {
+export const GetuiError = createError('GetuiError', {
   code: 'GETUI_ERROR',
 });
 
@@ -48,7 +49,7 @@ export interface GetuiOption {
 /**
  * 个推所有的 rest 接口
  */
-export default class Getui {
+export class Getui {
   public options: GetuiOption;
   private rp: any;
   private authToken: string;

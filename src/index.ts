@@ -5,5 +5,5 @@ export * from './apnsInfo';
 export * from './getui';
 export * from './other';
 
-import Getui, { GetuiOption } from './getui';
+import { Getui } from './getui';
 export default Getui;
