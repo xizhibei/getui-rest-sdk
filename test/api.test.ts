@@ -37,7 +37,6 @@ if (!process.env.GETUI_TEST_USE_REAL_CONNECTION) {
 
 test.before(async t => {
   gt = new Getui(option);
-  await gt.authSign();
 });
 
 test.after.always(async t => {

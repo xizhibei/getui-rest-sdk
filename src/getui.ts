@@ -53,6 +53,9 @@ export class Getui {
   public options: GetuiOption;
   private rp: any;
   private authToken: string;
+  private authTokenAcquireTime: number;
+  private waitQueue: any[] = [];
+  private connecting: boolean = false;
 
   public constructor(options: GetuiOption) {
     this.options = options;
@@ -71,22 +74,30 @@ export class Getui {
     if (params.body) {
       params.body = removeUndefined(params.body);
     }
+
+    const ingoreUrls = [
+      '/auth_sign',
+      '/auth_close',
+    ];
+    if (!_.includes(ingoreUrls, params.url)) {
+      await this.authSign();
+    }
+
     if (this.authToken) {
       params.headers = {
         'User-Agent': USER_AGENT,
         authtoken: this.authToken,
       };
     }
+
     log(JSON.stringify(params.body, null, 2));
     const ret = await this.rp(params);
+
     if (ret.result !== 'ok') throw new GetuiError(ret.result, { detail: ret });
     return ret;
   }
 
-  /**
-   * 用户身份验证通过获得 auth_token 权限令牌，后面的请求都会自动带上 auth_token
-   */
-  public async authSign(): Promise<void> {
+  private async startAuthSign(): Promise<void> {
     const timestamp = _.now();
     const sign = sha256(`${this.options.appKey}${timestamp}${this.options.masterSecret}`);
     const { auth_token: authToken } = await this.request({
@@ -98,9 +109,38 @@ export class Getui {
       },
     });
     this.authToken = authToken;
+    this.authTokenAcquireTime = _.now();
+    log(`authToken: ${this.authToken}, authTokenAcquireTime: ${this.authTokenAcquireTime}`);
+  }
 
-    // Token 有效期24小时，提前十分钟，即每过 23 小时 50 分钟刷新
-    setTimeout(this.authSign.bind(this), 86340000);
+  /**
+   * 用户身份验证通过获得 auth_token 权限令牌，后面的请求都会自动带上 auth_token
+   */
+  public async authSign(): Promise<any> {
+    const elaspe = _.now() - this.authTokenAcquireTime;
+    // 检验 token 是否超过了有效时间，官方说明为一天，考虑到网络延时，提前 10 分钟
+    if (this.authToken && elaspe < 8580000) return;
+
+    if (this.connecting) {
+      return new Promise((resolve) => {
+        this.waitQueue.push(resolve);
+      });
+    }
+
+    this.connecting = true;
+    try {
+      await this.startAuthSign();
+    } catch (e) {
+      this.connecting = false;
+      throw e;
+    }
+    this.connecting = false;
+
+    log(`wait queue lenght: ${this.waitQueue.length}`);
+    while(this.waitQueue.length) {
+      const resolve = this.waitQueue.pop();
+      resolve();
+    }
   }
 
   /**

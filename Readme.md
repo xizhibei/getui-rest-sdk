@@ -34,7 +34,6 @@ const option: GetuiOption = {
 };
 
 const gt = new Getui(option);
-await gt.authSign();
 ```
 
 ##### 初始化透传模板
