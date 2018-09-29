@@ -20,3 +20,4 @@ deploy:
   on:
     tags: true
     repo: xizhibei/getui-rest-sdk
+  skip_cleanup: true
