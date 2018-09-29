@@ -47,7 +47,7 @@ export class Message {
   msgType: string;
 
   _template: BaseTemplate;
-  apnsInfo: ApnsInfo;
+  apnsInfo?: ApnsInfo;
 
   public getData(): any {
     return removeUndefined({
@@ -72,7 +72,7 @@ export class Message {
   }
 
   public getPushInfo(): any {
-    return this.apnsInfo.toObject();
+    return this.apnsInfo && this.apnsInfo.toObject();
   }
 }
 
