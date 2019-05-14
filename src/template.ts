@@ -188,11 +188,34 @@ export class TransmissionTemplate extends BaseTemplate {
    * 透传内容
    */
   transmissionContent: string;
-
+  
+  notify: Notify;
+  
   public toObject(): any {
     return removeUndefined(_.assign(super.toObject(), {
       transmission_type: this.transmissionType,
       transmission_content: this.transmissionContent,
+      notify: this.notify
     }));
   }
+}
+
+export class Notify extends TransmissionTemplate {
+  /**
+   * 通知栏标题 
+   */
+  title: string; 
+  /**
+   * 通知栏内容 
+   */
+  content: string;  
+  /**
+   * 长度小于1000字节
+   */
+  intent: string;
+  /**
+   * 取值为0 1 代表intent， 2代表url，
+   * 如果设置了url/intent,需要指定type 
+   */
+  type: string; 
 }
