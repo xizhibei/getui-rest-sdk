@@ -188,9 +188,12 @@ export class TransmissionTemplate extends BaseTemplate {
    * 透传内容
    */
   transmissionContent: string;
-  
-  notify: Notify;
-  
+
+  /**
+   * 透传参数
+   */
+  notify?: Notify;
+
   public toObject(): any {
     return removeUndefined(_.assign(super.toObject(), {
       transmission_type: this.transmissionType,
@@ -202,12 +205,12 @@ export class TransmissionTemplate extends BaseTemplate {
 
 export class Notify extends TransmissionTemplate {
   /**
-   * 通知栏标题 
+   * 通知栏标题
    */
   title: string;
 
   /**
-   * 通知栏内容 
+   * 通知栏内容
    */
   content: string;
 
@@ -217,9 +220,9 @@ export class Notify extends TransmissionTemplate {
   intent: string;
 
   /**
-   * 取值为0 1 代表intent， 2代表url，
-   * 如果设置了url/intent,需要指定type 
+   * 取值为0 1 代表intent， 2代表url
+   * 如果设置了url/intent,需要指定type
    */
   type: string;
-  
+
 }
