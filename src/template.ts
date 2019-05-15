@@ -204,18 +204,22 @@ export class Notify extends TransmissionTemplate {
   /**
    * 通知栏标题 
    */
-  title: string; 
+  title: string;
+
   /**
    * 通知栏内容 
    */
-  content: string;  
+  content: string;
+
   /**
    * 长度小于1000字节
    */
   intent: string;
+
   /**
    * 取值为0 1 代表intent， 2代表url，
    * 如果设置了url/intent,需要指定type 
    */
-  type: string; 
+  type: string;
+  
 }
