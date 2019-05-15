@@ -1,6 +1,6 @@
 {
   "name": "getui-rest-sdk",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Getui rest api for node.js, in TypeScript",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
