@@ -67,9 +67,10 @@
   version "4.14.92"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.92.tgz#6e3cb0b71a1e12180a47a42a744e856c3ae99a57"
 
-"@types/nock@^9.1.3":
-  version "9.1.3"
-  resolved "https://registry.yarnpkg.com/@types/nock/-/nock-9.1.3.tgz#1d445679375b9e25afd449dc56585f81729454e8"
+"@types/nock@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@types/nock/-/nock-10.0.0.tgz#08584a37447e61bfbe641a08c7d15310a08febd4"
+  integrity sha512-DJM4sOEUeGzqjDkMtCubuN8zQ9gUxzPC+WVMzK2X4q6Kc5pnRFWcm8gkk4JNsDs7Zs6jjVf+dNYbNOii8fzPLA==
   dependencies:
     "@types/node" "*"
 
