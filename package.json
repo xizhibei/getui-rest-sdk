@@ -10,6 +10,9 @@
     "build": "tsc",
     "prepublish": "npm run build"
   },
+  "files": [
+    "dist/src"
+  ],
   "ava": {
     "files": [
       "dist/test/**/*.test.js"
