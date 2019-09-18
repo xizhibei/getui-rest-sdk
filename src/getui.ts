@@ -1,5 +1,3 @@
-import { setTimeout } from 'timers';
-
 import * as _ from 'lodash';
 import * as rp from 'request-promise';
 import * as createError from 'create-error';
