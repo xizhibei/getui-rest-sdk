@@ -1,13 +1,11 @@
-
 name: Node.js Package
 
 on:
-  pull_request:
-    branches:
-      - master
   push:
     branches:
       - master
+    tags:
+      - "*"
 
 jobs:
   build:
@@ -46,7 +44,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
-          scope: '@xizhibei'
+          scope: "@xizhibei"
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
