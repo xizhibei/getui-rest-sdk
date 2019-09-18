@@ -1,9 +1,10 @@
 # Getui Rest SDK
 
-[![Build Status](https://travis-ci.org/xizhibei/getui-rest-sdk.svg?branch=master&style=flat)](https://travis-ci.org/xizhibei/getui-rest-sdk)
+![Build Status](https://github.com/xizhibei/getui-rest-sdk/workflows/Node%20CI/badge.svg)
 [![npm version](https://badge.fury.io/js/getui-rest-sdk.svg?style=flat)](http://badge.fury.io/js/getui-rest-sdk)
 [![Dependency Status](https://img.shields.io/david/xizhibei/getui-rest-sdk.svg?style=flat)](https://david-dm.org/xizhibei/getui-rest-sdk)
-[![npm](https://img.shields.io/npm/l/getui-rest-sdk.svg)](https://github.com/xizhibei/getui-rest-sdk/blob/master/LICENSE) [![Greenkeeper badge](https://badges.greenkeeper.io/xizhibei/getui-rest-sdk.svg)](https://greenkeeper.io/)
+[![npm](https://img.shields.io/npm/l/getui-rest-sdk.svg)](https://github.com/xizhibei/getui-rest-sdk/blob/master/LICENSE)
+[![Greenkeeper badge](https://badges.greenkeeper.io/xizhibei/getui-rest-sdk.svg)](https://greenkeeper.io/)
 
 ### Getting Started
 
