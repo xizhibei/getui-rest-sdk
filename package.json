@@ -1,5 +1,5 @@
 {
-  "name": "getui-rest-sdk",
+  "name": "@xizhibei/getui-rest-sdk",
   "version": "1.0.0",
   "description": "Getui rest api for node.js, in TypeScript",
   "main": "dist/src/index.js",

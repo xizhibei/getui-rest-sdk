@@ -15,7 +15,7 @@
 ### Installing
 
 ```bash
-npm i getui-rest-sdk --save
+npm i @xizhibei/getui-rest-sdk --save
 ```
 
 建议使用 vscode 开发，typing 代码提示更加完善
