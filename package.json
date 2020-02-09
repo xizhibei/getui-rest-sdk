@@ -51,7 +51,7 @@
     "@types/nock": "^11.1.0",
     "@types/node": "^12.7.5",
     "@types/uuid": "^3.4.5",
-    "ava": "^2.4.0",
+    "ava": "^3.3.0",
     "nock": "^11.3.4",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
