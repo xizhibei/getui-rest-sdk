@@ -43,7 +43,7 @@
     "lodash": "^4.17.15",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
-    "uuid": "^3.3.3"
+    "uuid": "^8.0.0"
   },
   "devDependencies": {
     "@types/bluebird-global": "^3.5.12",
